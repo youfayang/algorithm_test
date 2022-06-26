@@ -1,5 +1,8 @@
 package easy.linkedlist;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @Classname LC160_IntersectionOfTwoLinkedLists
  * @Description TODO
@@ -64,4 +67,22 @@ public class LC160_IntersectionOfTwoLinkedLists {
              next = null;
          }
      }
+
+    public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        Set<ListNode> nodeSet = new HashSet<>(16);
+        if (headA == null || headB == null){
+            return null;
+        }
+        while (headA != null){
+            nodeSet.add(headA);
+            headA = headA.next;
+        }
+        while (headB != null){
+            if (nodeSet.contains(headB)){
+                return headB;
+            }
+            headB = headB.next;
+        }
+        return null;
+    }
 }

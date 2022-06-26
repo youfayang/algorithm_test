@@ -1,8 +1,5 @@
 package easy.linkedlist;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @Classname LC21_MergeTwoSortedLists
  * @Description TODO
@@ -24,17 +21,74 @@ public class LC21_MergeTwoSortedLists {
         ListNode l23 = new ListNode(4);
         l21.next = l22;
         l22.next = l23;
-        ListNode res = mergeTwoLists(l11,l21);
+        ListNode res = mergeTwoLists2(l11,l21);
         while (res != null){
             System.out.println(res.val);
             res = res.next;
         }
     }
 
+    public static ListNode mergeTwoLists3(ListNode list1, ListNode list2) {
+        if (list1 == null){
+            return list2;
+        }
+        if (list2 == null){
+            return list1;
+        }
+        ListNode res;
+        if (list1.val < list2.val){
+            list1.next = mergeTwoLists3(list1.next,list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoLists3(list1,list2.next);
+            return list2;
+        }
+    }
+
+    public static ListNode mergeTwoLists2(ListNode list1, ListNode list2) {
+        ListNode res = null;
+        ListNode cur1 = list1;
+        ListNode cur2 = list2;
+        if (list1 == null){
+            return list2;
+        }
+        if (list2 == null){
+            return list1;
+        }
+
+        if (list1.val < list2.val){
+            res = list1;
+            cur1 = list1.next;
+        } else {
+            res = list2;
+            cur2 = list2.next;
+        }
+        mergeTwoLists2(res,cur1,cur2);
+        return res;
+    }
+
+    private static void mergeTwoLists2(ListNode res, ListNode cur1, ListNode cur2) {
+        if (cur1 == null){
+            res.next = cur2;
+            return;
+        }
+        if (cur2 == null){
+            res.next = cur1;
+            return;
+        }
+        if (cur1.val < cur2.val){
+            res.next = cur1;
+            cur1 = cur1.next;
+        }else {
+            res.next = cur2;
+            cur2 = cur2.next;
+        }
+        mergeTwoLists2(res.next,cur1,cur2);
+    }
 
 
     //todo 为啥不对。
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
         ListNode res = null;
         ListNode tail = null;
         ListNode cur1 = l1;

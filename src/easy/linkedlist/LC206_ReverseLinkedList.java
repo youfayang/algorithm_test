@@ -55,11 +55,4 @@ public class LC206_ReverseLinkedList {
         return reverseList2(newHead,tmp);
     }
 
-    //Definition for singly-linked list.
-//     public class ListNode {
-//         int val;
-//         ListNode next;
-//         ListNode(int x) { val = x; }
-//     }
-
 }
